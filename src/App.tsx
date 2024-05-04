@@ -4,13 +4,13 @@ import { startAuthentication, startRegistration } from "@simplewebauthn/browser"
 import { useState } from "react"
 
 function App() {
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState('jarek9244@gmail.com');
 
   async function register() {
     try {
       const response = await fetch('http://localhost:3000/passkey/register/begin', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userName })
+        body: JSON.stringify({ userName }),
       });
 
       console.log(response)
@@ -21,7 +21,7 @@ function App() {
       }
 
       // Convert the registration options to JSON.
-      const options = await response.json();
+      const { options, token } = await response.json();
       console.log(options)
 
       // This triggers the browser to display the passkey / WebAuthn modal (e.g. Face ID, Touch ID, Windows Hello).
@@ -32,7 +32,7 @@ function App() {
       const verificationResponse = await fetch('http://localhost:3000/passkey/register/finish', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(attestationResponse)
+          body: JSON.stringify({ ...attestationResponse, token })
       });
 
       if (verificationResponse.ok) {
@@ -56,7 +56,7 @@ function App() {
             throw new Error('Failed to get login options from server');
         }
         // Convert the login options to JSON.
-        const options = await response.json();
+        const { options, token } = await response.json();
         console.log(options)
 
         // This triggers the browser to display the passkey / WebAuthn modal (e.g. Face ID, Touch ID, Windows Hello).
@@ -67,7 +67,7 @@ function App() {
         const verificationResponse = await fetch('http://localhost:3000/passkey/login/finish', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(assertionResponse)
+            body: JSON.stringify({ ...assertionResponse, token })
         });
 
         if (verificationResponse.ok) {
