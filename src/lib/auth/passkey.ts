@@ -10,5 +10,5 @@ import {
 export const register = (options: PublicKeyCredentialCreationOptionsJSON) =>
   startRegistration(options);
 
-export const authenticate = (options: PublicKeyCredentialRequestOptionsJSON) =>
+export const login = (options: PublicKeyCredentialRequestOptionsJSON) =>
   startAuthentication(options);
