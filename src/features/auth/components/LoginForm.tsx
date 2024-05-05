@@ -19,12 +19,12 @@ const LoginForm: React.FC<Props> = ({ onLogin, onRegister }) => {
         <Stack spacing={2}>
           <TextField label="Adres email" value={email} onChange={e => setEmail(e.target.value)} fullWidth={true} />
 
-          <Button variant="contained" startIcon={<Fingerprint />} fullWidth={true} onClick={() => onRegister(email)}>
+          <Button variant="contained" startIcon={<Fingerprint />} fullWidth={true} onClick={() => email && onRegister(email)}>
             Utwórz konto
           </Button>
         </Stack>
 
-        <Button variant="contained" startIcon={<Fingerprint />} fullWidth={true} onClick={() => onLogin(email)}>
+        <Button variant="contained" startIcon={<Fingerprint />} fullWidth={true} onClick={() => email && onLogin(email)}>
           Zaloguj przy pomocy passkey
         </Button>
       </Stack>
