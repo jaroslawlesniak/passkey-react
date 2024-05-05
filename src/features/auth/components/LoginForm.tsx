@@ -5,26 +5,26 @@ import { useState } from "react";
 
 type Props = {
   onRegister: (email: string) => void;
-  onLogin: () => void;
+  onLogin: (email: string) => void;
 }
 
-const LoginForm: React.FC<Props> = () => {
+const LoginForm: React.FC<Props> = ({ onLogin, onRegister }) => {
   const [email, setEmail] = useState('');
 
   return (
     <Stack spacing={4} style={styles.container}>
-      <h4>Logowanie</h4>
+      <h4>Bankowość online</h4>
 
       <Stack spacing={3} divider={<Divider />}>
         <Stack spacing={2}>
           <TextField label="Adres email" value={email} onChange={e => setEmail(e.target.value)} fullWidth={true} />
 
-          <Button variant="contained" startIcon={<Fingerprint />} fullWidth={true}>
+          <Button variant="contained" startIcon={<Fingerprint />} fullWidth={true} onClick={() => onRegister(email)}>
             Utwórz konto
           </Button>
         </Stack>
 
-        <Button variant="contained" startIcon={<Fingerprint />} fullWidth={true}>
+        <Button variant="contained" startIcon={<Fingerprint />} fullWidth={true} onClick={() => onLogin(email)}>
           Logowanie przy pomocy passkey
         </Button>
       </Stack>

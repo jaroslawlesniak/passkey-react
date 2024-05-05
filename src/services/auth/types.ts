@@ -1,4 +1,8 @@
-import { RegistrationResponseJSON, PublicKeyCredentialCreationOptionsJSON } from '@simplewebauthn/types'
+import {
+  RegistrationResponseJSON,
+  PublicKeyCredentialCreationOptionsJSON,
+  AuthenticationResponseJSON
+} from '@simplewebauthn/types'
 
 export type StartRegistrationPayload = {
   email: string;
@@ -15,5 +19,23 @@ export type FinishRegistrationPayload = {
 }
 
 export type FinishRegistrationResponse = {
-  
+  token: string;
+};
+
+export type StartLoggingPayload = {
+  email: string;
 }
+
+export type StartLoggingResponse = {
+  options: PublicKeyCredentialCreationOptionsJSON;
+  token: string;
+}
+
+export type FinishLoggingPayload = {
+  token: string;
+  assertion: AuthenticationResponseJSON;
+}
+
+export type FinishLoggingResponse = {
+  token: string;
+};

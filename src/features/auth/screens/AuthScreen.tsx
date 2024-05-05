@@ -1,17 +1,11 @@
 import { Screen } from "@/components/screen";
 import LoginForm from "../components/LoginForm";
-import { useCallback } from "react";
 
 import { Container } from "../components";
+import useAuthentication from "../hooks/useAuthentication";
 
 const AuthScreen = () => {
-  const register = useCallback(() => {
-
-  }, []);
-
-  const login = useCallback(() => {
-
-  }, []);
+  const { login, register } = useAuthentication();
 
   return (
     <Screen>
