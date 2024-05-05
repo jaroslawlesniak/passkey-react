@@ -1,10 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './styles/index.css'
+
 import { Navigation } from '@/navigation'
 import { AuthProvider } from '@/contexts/auth'
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+import './styles/index.css'
+
+const root = document.getElementById('root')!;
+
+ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <AuthProvider>
       <Navigation />

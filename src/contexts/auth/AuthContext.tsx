@@ -1,17 +1,19 @@
 import React, { PropsWithChildren, createContext, useContext, useState } from 'react'
-import { ContextValue } from './types';
+import { ContextValue, User } from './types';
+
+const user: User = {
+  token: ''
+}
 
 const initial: ContextValue = {
-  user: {
-    token: '',
-  },
+  user,
   setUser: () => {},
 };
 
 const AuthContext = createContext<ContextValue>(initial);
 
 const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [user, setUser] = useState({ token: '' });
+  const [user, setUser] = useState(initial.user);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
