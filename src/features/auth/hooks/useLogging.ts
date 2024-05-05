@@ -8,7 +8,7 @@ const useLogging = (onSuccess: (token: string) => void) => {
     startLoginProcess({ email })
       .then(({ options, token }) => authenticate(options).then(assertion => finishLoginProcess({ assertion, token }))
         .then(({ token }) => onSuccess(token))
-      ), []);
+      ), [onSuccess]);
 
   const [start, state] = usePromise(loginChain);
 

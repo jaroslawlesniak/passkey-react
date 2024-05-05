@@ -13,7 +13,7 @@ const useAuthentication = () => {
     setUser({ token });
 
     navigate(PATHS.DASHBOARD);
-  }, [navigate]);
+  }, [setUser, navigate]);
 
   const [login] = useLogging(onSuccess);
   const [register] = useRegistration(onSuccess);

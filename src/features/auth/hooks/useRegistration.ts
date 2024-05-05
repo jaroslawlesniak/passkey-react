@@ -8,7 +8,7 @@ const useRegistration = (onSuccess: (token: string) => void) => {
     startRegistrationProcess({ email })
       .then(({ options, token }) => register(options).then(attestation => finishRegistrationProcess({ attestation, token }))
         .then(({ token }) => onSuccess(token))
-      ), []);
+      ), [onSuccess]);
 
   const [start, state] = usePromise(registerChain);
 
