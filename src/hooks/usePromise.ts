@@ -2,17 +2,14 @@ import { useCallback, useState } from 'react'
 
 const usePromise = <T,Q>(action: (args: T) => Promise<Q>) => {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<Q | undefined>(undefined);
 
-  const start = useCallback((args: T) => {
+  const start = useCallback(async (args: T): Promise<Q> => {
     setLoading(true)
 
-    action(args)
-      .then(payload => setData(payload))
-      .finally(() => setLoading(false));
+    return action(args).finally(() => setLoading(false));
   }, []);
 
-  return [start, { loading, data }] as const;
+  return [start, { loading }] as const;
 }
 
 export default usePromise

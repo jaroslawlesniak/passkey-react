@@ -25,7 +25,7 @@ const LoginForm: React.FC<Props> = ({ onLogin, onRegister }) => {
         </Stack>
 
         <Button variant="contained" startIcon={<Fingerprint />} fullWidth={true} onClick={() => onLogin(email)}>
-          Logowanie przy pomocy passkey
+          Zaloguj przy pomocy passkey
         </Button>
       </Stack>
     </Stack>
