@@ -13,8 +13,6 @@ function App() {
         body: JSON.stringify({ userName }),
       });
 
-      console.log(response)
-
       // Check if the registration options are ok.
       if (!response.ok) {
           throw new Error('User already exists or failed to get registration options from server');
@@ -22,7 +20,6 @@ function App() {
 
       // Convert the registration options to JSON.
       const { options, token } = await response.json();
-      console.log(options)
 
       // This triggers the browser to display the passkey / WebAuthn modal (e.g. Face ID, Touch ID, Windows Hello).
       // A new attestation is created. This also means a new public-private-key pair is created.

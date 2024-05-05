@@ -2,7 +2,7 @@ import React, { PropsWithChildren, createContext, useContext, useState } from 'r
 import { ContextValue, User } from './types';
 
 const user: User = {
-  token: ''
+  token: 'some token'
 }
 
 const initial: ContextValue = {
