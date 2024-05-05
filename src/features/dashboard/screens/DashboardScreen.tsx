@@ -1,7 +1,9 @@
+import { withGuard } from "@/hoc/auth"
+
 const DashboardScreen = () => {
   return (
     <div>DashboardScreen</div>
   )
 }
 
-export default DashboardScreen
+export default withGuard(DashboardScreen);

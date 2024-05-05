@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAuth } from '@/contexts/auth'
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../paths';
+import { PATHS } from '@/navigation/paths';
 
 const HomeScreen = () => {
   const { user } = useAuth();
@@ -9,7 +9,7 @@ const HomeScreen = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    user.token ? navigate(ROUTES.DASHBOARD) : navigate(ROUTES.AUTH)
+    user.token ? navigate(PATHS.DASHBOARD) : navigate(PATHS.AUTH)
   }, [navigate, user.token]);
 
   return (

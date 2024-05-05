@@ -1,10 +1,10 @@
 import type { RouteObject } from "react-router-dom";
 import DashboardScreen from "./screens/DashboardScreen";
-import { ROUTES } from "../paths";
+import { PATHS } from '@/navigation/paths';
 
 const routes: RouteObject[] = [
   {
-    path: ROUTES.DASHBOARD,
+    path: PATHS.DASHBOARD,
     element: <DashboardScreen />
   }
 ];
