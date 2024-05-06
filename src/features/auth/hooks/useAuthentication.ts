@@ -9,8 +9,8 @@ const useAuthentication = () => {
   const { setUser } = useAuth();
   const navigate = useNavigate();
 
-  const onSuccess = useCallback((token: string) => {
-    setUser({ token });
+  const onSuccess = useCallback((token: string, email: string) => {
+    setUser({ token, email });
 
     navigate(PATHS.DASHBOARD);
   }, [setUser, navigate]);

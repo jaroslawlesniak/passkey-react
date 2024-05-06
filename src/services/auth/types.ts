@@ -20,6 +20,7 @@ export type FinishRegistrationPayload = {
 
 export type FinishRegistrationResponse = {
   token: string;
+  email: string;
 };
 
 export type StartLoggingPayload = {
@@ -38,4 +39,5 @@ export type FinishLoggingPayload = {
 
 export type FinishLoggingResponse = {
   token: string;
+  email: string;
 };

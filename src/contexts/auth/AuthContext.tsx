@@ -2,7 +2,8 @@ import React, { PropsWithChildren, createContext, useContext, useState } from 'r
 import { ContextValue, User } from './types';
 
 const user: User = {
-  token: 'some token'
+  token: '',
+  email: '',
 }
 
 const initial: ContextValue = {

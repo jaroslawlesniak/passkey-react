@@ -3,11 +3,11 @@ import { register } from '@/lib/auth';
 import { finishRegistrationProcess, startRegistrationProcess } from '@/services/auth';
 import { useCallback } from 'react';
 
-const useRegistration = (onSuccess: (token: string) => void) => {
+const useRegistration = (onSuccess: (token: string, email: string) => void) => {
   const registerChain = useCallback((email: string) =>
     startRegistrationProcess({ email })
       .then(({ options, token }) => register(options).then(attestation => finishRegistrationProcess({ attestation, token }))
-        .then(({ token }) => onSuccess(token))
+        .then(({ token, email }) => onSuccess(token, email))
       ), [onSuccess]);
 
   const [start, state] = usePromise(registerChain);
