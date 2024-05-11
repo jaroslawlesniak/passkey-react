@@ -63,19 +63,23 @@ const toResponse = (credential: AuthenticationCredential): AuthenticationRespons
   };
 }
 
+const toOptions = (request: PublicKeyCredentialRequestOptionsJSON): CredentialRequestOptions => {
+  const allowCredentials = toAllowCredentials(request.allowCredentials);
+  const publicKey = toPublicKey(request, allowCredentials);
+  const signal = WebAuthnAbortService.createNewAbortSignal();
+
+  return {
+    publicKey,
+    signal,
+  }
+}
+
 export const startAuthentication = async (request: PublicKeyCredentialRequestOptionsJSON): Promise<AuthenticationResponseJSON> => {
   if (!isSupportedByBrowser()) {
     throw new Error('Browser is not supporting Web Authentication API');
   }
 
-  const allowCredentials = toAllowCredentials(request.allowCredentials);
-  const publicKey = toPublicKey(request, allowCredentials);
-  const signal = WebAuthnAbortService.createNewAbortSignal();
-
-  const options: CredentialRequestOptions = {
-    publicKey,
-    signal,
-  }
+  const options = toOptions(request);
 
   return getCredential(options)
     .then(toResponse)
