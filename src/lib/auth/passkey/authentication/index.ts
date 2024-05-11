@@ -1,6 +1,6 @@
-import { WebAuthnAbortService, getCredential } from "./native";
-import { base64URLStringToBuffer, bufferToBase64URLString, isSupportedByBrowser, rethrow } from "../utils";
-import { AuthenticationCredential, AuthenticationResponseJSON, PublicKeyCredentialDescriptorJSON, PublicKeyCredentialRequestOptionsJSON } from "../types";
+import { getCredential } from "./native";
+import { WebAuthnAbortService, base64URLStringToBuffer, bufferToBase64URLString, isSupportedByBrowser, rethrow, toAuthenticatorAttachment } from "../utils";
+import { AuthenticationCredential, AuthenticationResponseJSON, Base64URLString, PublicKeyCredentialDescriptorJSON, PublicKeyCredentialRequestOptionsJSON } from "../types";
 
 const toAllowCredentials = (allowed?: PublicKeyCredentialDescriptorJSON[]): PublicKeyCredentialDescriptor[] => {
   if (!allowed) {
@@ -18,29 +18,13 @@ const toAllowCredentials = (allowed?: PublicKeyCredentialDescriptorJSON[]): Publ
   })
 }
 
-const toPublicKey = (options: PublicKeyCredentialRequestOptionsJSON, allowCredentials: PublicKeyCredentialDescriptor[]) => ({
+const toPublicKey = (options: PublicKeyCredentialRequestOptionsJSON, allowCredentials: PublicKeyCredentialDescriptor[]): PublicKeyCredentialRequestOptions => ({
   ...options,
   challenge: base64URLStringToBuffer(options.challenge),
   allowCredentials,
 })
 
-const attachments: AuthenticatorAttachment[] = ['cross-platform', 'platform'];
-
-export function toAuthenticatorAttachment(
-  attachment: string | null,
-): AuthenticatorAttachment | undefined {
-  if (!attachment) {
-    return;
-  }
-
-  if (attachments.indexOf(attachment as AuthenticatorAttachment) < 0) {
-    return;
-  }
-
-  return attachment as AuthenticatorAttachment;
-}
-
-const toUserHandle = ({ userHandle }: AuthenticatorAssertionResponse) =>
+const toUserHandle = ({ userHandle }: AuthenticatorAssertionResponse): Base64URLString | undefined =>
   userHandle ? bufferToBase64URLString(userHandle) : undefined;
 
 const toResponse = (credential: AuthenticationCredential): AuthenticationResponseJSON => {

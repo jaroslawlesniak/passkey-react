@@ -552,3 +552,10 @@ export interface PublicKeyCredentialFuture extends PublicKeyCredential {
  * - `"multiDevice"` credentials can be backed up
  */
 export type CredentialDeviceType = 'singleDevice' | 'multiDevice';
+
+export interface RegistrationCredentialWithResponse extends RegistrationCredential {
+  transports?: AuthenticatorTransportFuture[];
+  responsePublicKeyAlgorithm?: number;
+  responsePublicKey?: string;
+  responseAuthenticatorData?: string;
+}
