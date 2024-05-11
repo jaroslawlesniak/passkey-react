@@ -1,8 +1,8 @@
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import { Button, Paper, Stack, Typography } from '@mui/material';
 import { BarChart } from '@mui/x-charts/BarChart';
 
-import { useAuth } from "@/contexts/auth";
-import { withGuard } from "@/hoc/auth"
+import { useAuth } from '@/contexts/auth';
+import { withGuard } from '@/hoc/auth';
 
 const DashboardScreen = () => {
   const { user, setUser } = useAuth();
@@ -10,9 +10,7 @@ const DashboardScreen = () => {
   return (
     <Paper elevation={3} style={{ padding: 50, margin: 150 }}>
       <Stack spacing={10}>
-        <Typography variant="h4">
-          Witaj, {user.email}
-        </Typography>
+        <Typography variant="h4">Witaj, {user.email}</Typography>
 
         <BarChart
           series={[
@@ -31,7 +29,7 @@ const DashboardScreen = () => {
         </Button>
       </Stack>
     </Paper>
-  )
-}
+  );
+};
 
 export default withGuard(DashboardScreen);

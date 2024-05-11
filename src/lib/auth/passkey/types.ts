@@ -13,11 +13,12 @@ export interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
 }
 
 /**
-* Available only in secure contexts.
-*
-* [MDN Reference](https://developer.mozilla.org/docs/Web/API/AuthenticatorAttestationResponse)
-*/
-export interface AuthenticatorAttestationResponse extends AuthenticatorResponse {
+ * Available only in secure contexts.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AuthenticatorAttestationResponse)
+ */
+export interface AuthenticatorAttestationResponse
+  extends AuthenticatorResponse {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AuthenticatorAttestationResponse/attestationObject) */
   readonly attestationObject: ArrayBuffer;
   getAuthenticatorData(): ArrayBuffer;
@@ -47,10 +48,10 @@ export interface AuthenticatorSelectionCriteria {
 }
 
 /**
-* Basic cryptography features available in the current context. It allows access to a cryptographically strong random number generator and to cryptographic primitives.
-*
-* [MDN Reference](https://developer.mozilla.org/docs/Web/API/Crypto)
-*/
+ * Basic cryptography features available in the current context. It allows access to a cryptographically strong random number generator and to cryptographic primitives.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Crypto)
+ */
 export interface Crypto {
   /**
    * Available only in secure contexts.
@@ -69,10 +70,10 @@ export interface Crypto {
 }
 
 /**
-* Available only in secure contexts.
-*
-* [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential)
-*/
+ * Available only in secure contexts.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential)
+ */
 export interface PublicKeyCredential extends Credential {
   readonly authenticatorAttachment: string | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/rawId) */
@@ -115,16 +116,17 @@ export interface PublicKeyCredentialRequestOptions {
   userVerification?: UserVerificationRequirement;
 }
 
-export interface PublicKeyCredentialUserEntity extends PublicKeyCredentialEntity {
+export interface PublicKeyCredentialUserEntity
+  extends PublicKeyCredentialEntity {
   displayName: string;
   id: BufferSource;
 }
 
 /**
-* Available only in secure contexts.
-*
-* [MDN Reference](https://developer.mozilla.org/docs/Web/API/AuthenticatorResponse)
-*/
+ * Available only in secure contexts.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AuthenticatorResponse)
+ */
 export interface AuthenticatorResponse {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AuthenticatorResponse/clientDataJSON) */
   readonly clientDataJSON: ArrayBuffer;
@@ -135,47 +137,165 @@ export interface CredentialPropertiesOutput {
 }
 
 /**
-* This Web Crypto API interface provides a number of low-level cryptographic functions. It is accessed via the Crypto.subtle properties available in a window context (via Window.crypto).
-* Available only in secure contexts.
-*
-* [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto)
-*/
+ * This Web Crypto API interface provides a number of low-level cryptographic functions. It is accessed via the Crypto.subtle properties available in a window context (via Window.crypto).
+ * Available only in secure contexts.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto)
+ */
 export interface SubtleCrypto {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/decrypt) */
-  decrypt(algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+  decrypt(
+    algorithm:
+      | AlgorithmIdentifier
+      | RsaOaepParams
+      | AesCtrParams
+      | AesCbcParams
+      | AesGcmParams,
+    key: CryptoKey,
+    data: BufferSource,
+  ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/deriveBits) */
-  deriveBits(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>;
+  deriveBits(
+    algorithm:
+      | AlgorithmIdentifier
+      | EcdhKeyDeriveParams
+      | HkdfParams
+      | Pbkdf2Params,
+    baseKey: CryptoKey,
+    length: number,
+  ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/deriveKey) */
-  deriveKey(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: AlgorithmIdentifier | AesDerivedKeyParams | HmacImportParams | HkdfParams | Pbkdf2Params, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>;
+  deriveKey(
+    algorithm:
+      | AlgorithmIdentifier
+      | EcdhKeyDeriveParams
+      | HkdfParams
+      | Pbkdf2Params,
+    baseKey: CryptoKey,
+    derivedKeyType:
+      | AlgorithmIdentifier
+      | AesDerivedKeyParams
+      | HmacImportParams
+      | HkdfParams
+      | Pbkdf2Params,
+    extractable: boolean,
+    keyUsages: KeyUsage[],
+  ): Promise<CryptoKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/digest) */
-  digest(algorithm: AlgorithmIdentifier, data: BufferSource): Promise<ArrayBuffer>;
+  digest(
+    algorithm: AlgorithmIdentifier,
+    data: BufferSource,
+  ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/encrypt) */
-  encrypt(algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+  encrypt(
+    algorithm:
+      | AlgorithmIdentifier
+      | RsaOaepParams
+      | AesCtrParams
+      | AesCbcParams
+      | AesGcmParams,
+    key: CryptoKey,
+    data: BufferSource,
+  ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/exportKey) */
-  exportKey(format: "jwk", key: CryptoKey): Promise<JsonWebKey>;
-  exportKey(format: Exclude<KeyFormat, "jwk">, key: CryptoKey): Promise<ArrayBuffer>;
+  exportKey(format: 'jwk', key: CryptoKey): Promise<JsonWebKey>;
+  exportKey(
+    format: Exclude<KeyFormat, 'jwk'>,
+    key: CryptoKey,
+  ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/generateKey) */
-  generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams, extractable: boolean, keyUsages: ReadonlyArray<KeyUsage>): Promise<CryptoKeyPair>;
-  generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: ReadonlyArray<KeyUsage>): Promise<CryptoKey>;
-  generateKey(algorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKeyPair | CryptoKey>;
+  generateKey(
+    algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
+    extractable: boolean,
+    keyUsages: ReadonlyArray<KeyUsage>,
+  ): Promise<CryptoKeyPair>;
+  generateKey(
+    algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params,
+    extractable: boolean,
+    keyUsages: ReadonlyArray<KeyUsage>,
+  ): Promise<CryptoKey>;
+  generateKey(
+    algorithm: AlgorithmIdentifier,
+    extractable: boolean,
+    keyUsages: KeyUsage[],
+  ): Promise<CryptoKeyPair | CryptoKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/importKey) */
-  importKey(format: "jwk", keyData: JsonWebKey, algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm, extractable: boolean, keyUsages: ReadonlyArray<KeyUsage>): Promise<CryptoKey>;
-  importKey(format: Exclude<KeyFormat, "jwk">, keyData: BufferSource, algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>;
+  importKey(
+    format: 'jwk',
+    keyData: JsonWebKey,
+    algorithm:
+      | AlgorithmIdentifier
+      | RsaHashedImportParams
+      | EcKeyImportParams
+      | HmacImportParams
+      | AesKeyAlgorithm,
+    extractable: boolean,
+    keyUsages: ReadonlyArray<KeyUsage>,
+  ): Promise<CryptoKey>;
+  importKey(
+    format: Exclude<KeyFormat, 'jwk'>,
+    keyData: BufferSource,
+    algorithm:
+      | AlgorithmIdentifier
+      | RsaHashedImportParams
+      | EcKeyImportParams
+      | HmacImportParams
+      | AesKeyAlgorithm,
+    extractable: boolean,
+    keyUsages: KeyUsage[],
+  ): Promise<CryptoKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/sign) */
-  sign(algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+  sign(
+    algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams,
+    key: CryptoKey,
+    data: BufferSource,
+  ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/unwrapKey) */
-  unwrapKey(format: KeyFormat, wrappedKey: BufferSource, unwrappingKey: CryptoKey, unwrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams, unwrappedKeyAlgorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>;
+  unwrapKey(
+    format: KeyFormat,
+    wrappedKey: BufferSource,
+    unwrappingKey: CryptoKey,
+    unwrapAlgorithm:
+      | AlgorithmIdentifier
+      | RsaOaepParams
+      | AesCtrParams
+      | AesCbcParams
+      | AesGcmParams,
+    unwrappedKeyAlgorithm:
+      | AlgorithmIdentifier
+      | RsaHashedImportParams
+      | EcKeyImportParams
+      | HmacImportParams
+      | AesKeyAlgorithm,
+    extractable: boolean,
+    keyUsages: KeyUsage[],
+  ): Promise<CryptoKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/verify) */
-  verify(algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams, key: CryptoKey, signature: BufferSource, data: BufferSource): Promise<boolean>;
+  verify(
+    algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams,
+    key: CryptoKey,
+    signature: BufferSource,
+    data: BufferSource,
+  ): Promise<boolean>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/wrapKey) */
-  wrapKey(format: KeyFormat, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams): Promise<ArrayBuffer>;
+  wrapKey(
+    format: KeyFormat,
+    key: CryptoKey,
+    wrappingKey: CryptoKey,
+    wrapAlgorithm:
+      | AlgorithmIdentifier
+      | RsaOaepParams
+      | AesCtrParams
+      | AesCbcParams
+      | AesGcmParams,
+  ): Promise<ArrayBuffer>;
 }
 
 /**
-* Available only in secure contexts.
-*
-* [MDN Reference](https://developer.mozilla.org/docs/Web/API/Credential)
-*/
+ * Available only in secure contexts.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Credential)
+ */
 export interface Credential {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Credential/id) */
   readonly id: string;
@@ -211,11 +331,11 @@ export interface AesGcmParams extends Algorithm {
 }
 
 /**
-* The CryptoKey dictionary of the Web Crypto API represents a cryptographic key.
-* Available only in secure contexts.
-*
-* [MDN Reference](https://developer.mozilla.org/docs/Web/API/CryptoKey)
-*/
+ * The CryptoKey dictionary of the Web Crypto API represents a cryptographic key.
+ * Available only in secure contexts.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CryptoKey)
+ */
 export interface CryptoKey {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CryptoKey/algorithm) */
   readonly algorithm: KeyAlgorithm;
@@ -334,18 +454,38 @@ export interface RsaKeyGenParams extends Algorithm {
   publicExponent: BigInteger;
 }
 
-export type AttestationConveyancePreference = "direct" | "enterprise" | "indirect" | "none";
-export type AuthenticatorTransport = "ble" | "hybrid" | "internal" | "nfc" | "usb";
+export type AttestationConveyancePreference =
+  | 'direct'
+  | 'enterprise'
+  | 'indirect'
+  | 'none';
+export type AuthenticatorTransport =
+  | 'ble'
+  | 'hybrid'
+  | 'internal'
+  | 'nfc'
+  | 'usb';
 export type COSEAlgorithmIdentifier = number;
-export type UserVerificationRequirement = "discouraged" | "preferred" | "required";
-export type AuthenticatorAttachment = "cross-platform" | "platform";
-export type ResidentKeyRequirement = "discouraged" | "preferred" | "required";
+export type UserVerificationRequirement =
+  | 'discouraged'
+  | 'preferred'
+  | 'required';
+export type AuthenticatorAttachment = 'cross-platform' | 'platform';
+export type ResidentKeyRequirement = 'discouraged' | 'preferred' | 'required';
 export type BufferSource = ArrayBufferView | ArrayBuffer;
-export type PublicKeyCredentialType = "public-key";
+export type PublicKeyCredentialType = 'public-key';
 export type AlgorithmIdentifier = Algorithm | string;
-export type KeyUsage = "decrypt" | "deriveBits" | "deriveKey" | "encrypt" | "sign" | "unwrapKey" | "verify" | "wrapKey";
-export type KeyFormat = "jwk" | "pkcs8" | "raw" | "spki";
-export type KeyType = "private" | "public" | "secret";
+export type KeyUsage =
+  | 'decrypt'
+  | 'deriveBits'
+  | 'deriveKey'
+  | 'encrypt'
+  | 'sign'
+  | 'unwrapKey'
+  | 'verify'
+  | 'wrapKey';
+export type KeyFormat = 'jwk' | 'pkcs8' | 'raw' | 'spki';
+export type KeyType = 'private' | 'public' | 'secret';
 export type HashAlgorithmIdentifier = AlgorithmIdentifier;
 export type NamedCurve = string;
 export type BigInteger = Uint8Array;
@@ -494,7 +634,8 @@ export type Base64URLString = string;
  *
  * Properties marked optional are not supported in all browsers.
  */
-export interface AuthenticatorAttestationResponseFuture extends AuthenticatorAttestationResponse {
+export interface AuthenticatorAttestationResponseFuture
+  extends AuthenticatorAttestationResponse {
   getTransports(): AuthenticatorTransportFuture[];
 }
 
@@ -553,7 +694,8 @@ export interface PublicKeyCredentialFuture extends PublicKeyCredential {
  */
 export type CredentialDeviceType = 'singleDevice' | 'multiDevice';
 
-export interface RegistrationCredentialWithResponse extends RegistrationCredential {
+export interface RegistrationCredentialWithResponse
+  extends RegistrationCredential {
   transports?: AuthenticatorTransportFuture[];
   responsePublicKeyAlgorithm?: number;
   responsePublicKey?: string;

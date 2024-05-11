@@ -1,6 +1,22 @@
-import { AuthenticatorAttestationResponseFuture, AuthenticatorTransportFuture, PublicKeyCredentialCreationOptions, PublicKeyCredentialCreationOptionsJSON, PublicKeyCredentialDescriptor, PublicKeyCredentialDescriptorJSON, RegistrationCredential, RegistrationCredentialWithResponse, RegistrationResponseJSON } from "../types";
-import { base64URLStringToBuffer, bufferToBase64URLString, isSupportedByBrowser, toAuthenticatorAttachment,WebAuthnAbortService } from "../utils";
-import { createCredential } from "./native";
+import {
+  AuthenticatorAttestationResponseFuture,
+  AuthenticatorTransportFuture,
+  PublicKeyCredentialCreationOptions,
+  PublicKeyCredentialCreationOptionsJSON,
+  PublicKeyCredentialDescriptor,
+  PublicKeyCredentialDescriptorJSON,
+  RegistrationCredential,
+  RegistrationCredentialWithResponse,
+  RegistrationResponseJSON,
+} from '../types';
+import {
+  base64URLStringToBuffer,
+  bufferToBase64URLString,
+  isSupportedByBrowser,
+  toAuthenticatorAttachment,
+  WebAuthnAbortService,
+} from '../utils';
+import { createCredential } from './native';
 
 const toPublicKeyCredentialDescriptor = (
   descriptor: PublicKeyCredentialDescriptorJSON,
@@ -12,9 +28,11 @@ const toPublicKeyCredentialDescriptor = (
     id: base64URLStringToBuffer(id),
     transports: descriptor.transports as AuthenticatorTransport[],
   };
-}
+};
 
-const toPublicKey = (request: PublicKeyCredentialCreationOptionsJSON): PublicKeyCredentialCreationOptions => ({
+const toPublicKey = (
+  request: PublicKeyCredentialCreationOptionsJSON,
+): PublicKeyCredentialCreationOptions => ({
   ...request,
   challenge: base64URLStringToBuffer(request.challenge),
   user: {
@@ -24,33 +42,41 @@ const toPublicKey = (request: PublicKeyCredentialCreationOptionsJSON): PublicKey
   excludeCredentials: request.excludeCredentials?.map(
     toPublicKeyCredentialDescriptor,
   ),
-})
+});
 
-const toOptions = (request: PublicKeyCredentialCreationOptionsJSON): CredentialCreationOptions => {
+const toOptions = (
+  request: PublicKeyCredentialCreationOptionsJSON,
+): CredentialCreationOptions => {
   const publicKey = toPublicKey(request);
   const signal = WebAuthnAbortService.createNewAbortSignal();
 
   return {
     publicKey,
-    signal
-  }
-}
+    signal,
+  };
+};
 
-const withTransports = (response: AuthenticatorAttestationResponseFuture): AuthenticatorTransportFuture[] | undefined => {
+const withTransports = (
+  response: AuthenticatorAttestationResponseFuture,
+): AuthenticatorTransportFuture[] | undefined => {
   if (typeof response.getTransports === 'function') {
     return response.getTransports();
   }
 
   return undefined;
-}
+};
 
-const withResponsePublicKeyAlgorithm = (response: AuthenticatorAttestationResponseFuture): number | undefined => {
+const withResponsePublicKeyAlgorithm = (
+  response: AuthenticatorAttestationResponseFuture,
+): number | undefined => {
   if (typeof response.getPublicKeyAlgorithm === 'function') {
     return response.getPublicKeyAlgorithm();
   }
-}
+};
 
-const withResponsePublicKey = (response: AuthenticatorAttestationResponseFuture): string | undefined => {
+const withResponsePublicKey = (
+  response: AuthenticatorAttestationResponseFuture,
+): string | undefined => {
   if (typeof response.getPublicKey === 'function') {
     const publicKey = response.getPublicKey();
 
@@ -58,15 +84,19 @@ const withResponsePublicKey = (response: AuthenticatorAttestationResponseFuture)
       return bufferToBase64URLString(publicKey);
     }
   }
-}
+};
 
-const withResponseAuthenticatorData = (response: AuthenticatorAttestationResponseFuture): string | undefined => {
+const withResponseAuthenticatorData = (
+  response: AuthenticatorAttestationResponseFuture,
+): string | undefined => {
   if (typeof response.getAuthenticatorData === 'function') {
     return bufferToBase64URLString(response.getAuthenticatorData());
   }
-}
+};
 
-const addResponseData = (credential: RegistrationCredential): RegistrationCredentialWithResponse => {
+const addResponseData = (
+  credential: RegistrationCredential,
+): RegistrationCredentialWithResponse => {
   const { response } = credential;
 
   return {
@@ -75,11 +105,22 @@ const addResponseData = (credential: RegistrationCredential): RegistrationCreden
     responsePublicKeyAlgorithm: withResponsePublicKeyAlgorithm(response),
     responsePublicKey: withResponsePublicKey(response),
     responseAuthenticatorData: withResponseAuthenticatorData(response),
-  }
-}
+  };
+};
 
-const toResponse = (credential: RegistrationCredentialWithResponse): RegistrationResponseJSON => {
-  const { id, rawId, response, type, transports, responseAuthenticatorData, responsePublicKey, responsePublicKeyAlgorithm } = credential;
+const toResponse = (
+  credential: RegistrationCredentialWithResponse,
+): RegistrationResponseJSON => {
+  const {
+    id,
+    rawId,
+    response,
+    type,
+    transports,
+    responseAuthenticatorData,
+    responsePublicKey,
+    responsePublicKeyAlgorithm,
+  } = credential;
 
   return {
     id,
@@ -97,17 +138,17 @@ const toResponse = (credential: RegistrationCredentialWithResponse): Registratio
     authenticatorAttachment: toAuthenticatorAttachment(
       credential.authenticatorAttachment,
     ),
-  }
-}
+  };
+};
 
-export const startRegistration = async (request: PublicKeyCredentialCreationOptionsJSON): Promise<RegistrationResponseJSON> => {
+export const startRegistration = async (
+  request: PublicKeyCredentialCreationOptionsJSON,
+): Promise<RegistrationResponseJSON> => {
   if (!isSupportedByBrowser()) {
     throw new Error('Browser is not supporting Web Authentication API');
   }
 
   const options = toOptions(request);
 
-  return createCredential(options)
-    .then(addResponseData)
-    .then(toResponse)
-}
+  return createCredential(options).then(addResponseData).then(toResponse);
+};

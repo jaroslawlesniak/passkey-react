@@ -1,14 +1,14 @@
-import type { RouteObject } from "react-router-dom";
+import type { RouteObject } from 'react-router-dom';
 
-import { PATHS } from "@/navigation/paths";
+import { PATHS } from '@/navigation/paths';
 
-import AuthScreen from "./screens/AuthScreen";
+import AuthScreen from './screens/AuthScreen';
 
 const routes: RouteObject[] = [
   {
     path: PATHS.AUTH,
-    element: <AuthScreen />
-  }
+    element: <AuthScreen />,
+  },
 ];
 
 export default routes;

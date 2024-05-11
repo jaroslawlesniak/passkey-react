@@ -1,7 +1,10 @@
 export const isSupportedByBrowser = () =>
-  window?.PublicKeyCredential !== undefined && typeof window.PublicKeyCredential === 'function'
+  window?.PublicKeyCredential !== undefined &&
+  typeof window.PublicKeyCredential === 'function';
 
-export const base64URLStringToBuffer = (base64URLString: string): ArrayBuffer => {
+export const base64URLStringToBuffer = (
+  base64URLString: string,
+): ArrayBuffer => {
   const base64 = base64URLString.replace(/-/g, '+').replace(/_/g, '/');
 
   const padLength = (4 - (base64.length % 4)) % 4;
@@ -17,7 +20,7 @@ export const base64URLStringToBuffer = (base64URLString: string): ArrayBuffer =>
   }
 
   return buffer;
-}
+};
 
 export const bufferToBase64URLString = (buffer: ArrayBuffer): string => {
   const bytes = new Uint8Array(buffer);
@@ -30,19 +33,21 @@ export const bufferToBase64URLString = (buffer: ArrayBuffer): string => {
   const base64String = btoa(str);
 
   return base64String.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
-}
+};
 
 export const rethrow = (err: Error) => {
   throw new Error(err.message);
 };
 
-export const throwIfFalsy = <T, Q>(message: string) => (data: T | null): Q => {
-  if (data) {
-    return data as Q;
-  }
+export const throwIfFalsy =
+  <T, Q>(message: string) =>
+  (data: T | null): Q => {
+    if (data) {
+      return data as Q;
+    }
 
-  throw new Error(message);
-};
+    throw new Error(message);
+  };
 
 const attachments: AuthenticatorAttachment[] = ['cross-platform', 'platform'];
 

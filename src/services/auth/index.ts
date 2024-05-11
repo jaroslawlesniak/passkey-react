@@ -1,4 +1,4 @@
-import { post } from "@/lib/rest";
+import { post } from '@/lib/rest';
 
 import type {
   FinishLoggingPayload,
@@ -8,29 +8,35 @@ import type {
   StartLoggingPayload,
   StartLoggingResponse,
   StartRegistrationPayload,
-  StartRegistrationResponse
-} from "./types";
+  StartRegistrationResponse,
+} from './types';
 
 export const startRegistrationProcess = ({ email }: StartRegistrationPayload) =>
   post<StartRegistrationResponse>('/passkey/register/begin', {
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email })
+    body: JSON.stringify({ email }),
   });
 
-export const finishRegistrationProcess = ({ attestation, token }: FinishRegistrationPayload) =>
+export const finishRegistrationProcess = ({
+  attestation,
+  token,
+}: FinishRegistrationPayload) =>
   post<FinishRegistrationResponse>('/passkey/register/finish', {
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ...attestation, token })
+    body: JSON.stringify({ ...attestation, token }),
   });
 
 export const startLoginProcess = ({ email }: StartLoggingPayload) =>
   post<StartLoggingResponse>('/passkey/login/begin', {
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email })
+    body: JSON.stringify({ email }),
   });
 
-export const finishLoginProcess = ({ assertion, token }: FinishLoggingPayload) =>
+export const finishLoginProcess = ({
+  assertion,
+  token,
+}: FinishLoggingPayload) =>
   post<FinishLoggingResponse>('/passkey/login/finish', {
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ...assertion, token })
+    body: JSON.stringify({ ...assertion, token }),
   });

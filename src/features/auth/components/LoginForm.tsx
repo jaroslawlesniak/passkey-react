@@ -1,13 +1,13 @@
-import { Fingerprint } from "@mui/icons-material";
-import { Button, Divider, Stack, TextField } from "@mui/material";
-import { useState } from "react";
+import { Fingerprint } from '@mui/icons-material';
+import { Button, Divider, Stack, TextField } from '@mui/material';
+import { useState } from 'react';
 
-import { Styles } from "@/styles/types";
+import { Styles } from '@/styles/types';
 
 type Props = {
   onRegister: (email: string) => void;
   onLogin: (email: string) => void;
-}
+};
 
 const LoginForm: React.FC<Props> = ({ onLogin, onRegister }) => {
   const [email, setEmail] = useState('');
@@ -18,14 +18,27 @@ const LoginForm: React.FC<Props> = ({ onLogin, onRegister }) => {
 
       <Stack spacing={3} divider={<Divider />}>
         <Stack spacing={2}>
-          <TextField label="Adres email" value={email} onChange={e => setEmail(e.target.value)} fullWidth={true} />
+          <TextField
+            label="Adres email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            fullWidth={true}
+          />
 
-          <Button variant="contained" startIcon={<Fingerprint />} fullWidth={true} onClick={() => email && onRegister(email)}>
+          <Button
+            variant="contained"
+            startIcon={<Fingerprint />}
+            fullWidth={true}
+            onClick={() => email && onRegister(email)}>
             Utwórz konto
           </Button>
         </Stack>
 
-        <Button variant="contained" startIcon={<Fingerprint />} fullWidth={true} onClick={() => email && onLogin(email)}>
+        <Button
+          variant="contained"
+          startIcon={<Fingerprint />}
+          fullWidth={true}
+          onClick={() => email && onLogin(email)}>
           Zaloguj przy pomocy passkey
         </Button>
       </Stack>
@@ -39,7 +52,7 @@ const styles: Styles = {
     padding: 50,
     borderRadius: 25,
     width: 400,
-  }
-}
+  },
+};
 
 export default LoginForm;

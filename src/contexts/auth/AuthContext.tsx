@@ -1,11 +1,16 @@
-import React, { createContext, PropsWithChildren, useContext, useState } from 'react'
+import React, {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useState,
+} from 'react';
 
 import { ContextValue, User } from './types';
 
 const user: User = {
   token: '',
   email: '',
-}
+};
 
 const initial: ContextValue = {
   user,
@@ -22,12 +27,12 @@ const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export const useAuth = () => {
   const { user, setUser } = useContext(AuthContext);
 
   return { user, setUser };
-}
+};
 
 export default AuthProvider;

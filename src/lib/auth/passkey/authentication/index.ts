@@ -1,8 +1,23 @@
-import { AuthenticationCredential, AuthenticationResponseJSON, Base64URLString, PublicKeyCredentialDescriptorJSON, PublicKeyCredentialRequestOptionsJSON } from "../types";
-import { base64URLStringToBuffer, bufferToBase64URLString, isSupportedByBrowser, rethrow, toAuthenticatorAttachment,WebAuthnAbortService } from "../utils";
-import { getCredential } from "./native";
+import {
+  AuthenticationCredential,
+  AuthenticationResponseJSON,
+  Base64URLString,
+  PublicKeyCredentialDescriptorJSON,
+  PublicKeyCredentialRequestOptionsJSON,
+} from '../types';
+import {
+  base64URLStringToBuffer,
+  bufferToBase64URLString,
+  isSupportedByBrowser,
+  rethrow,
+  toAuthenticatorAttachment,
+  WebAuthnAbortService,
+} from '../utils';
+import { getCredential } from './native';
 
-const toAllowCredentials = (allowed?: PublicKeyCredentialDescriptorJSON[]): PublicKeyCredentialDescriptor[] => {
+const toAllowCredentials = (
+  allowed?: PublicKeyCredentialDescriptorJSON[],
+): PublicKeyCredentialDescriptor[] => {
   if (!allowed) {
     return [];
   }
@@ -15,19 +30,26 @@ const toAllowCredentials = (allowed?: PublicKeyCredentialDescriptorJSON[]): Publ
       id: base64URLStringToBuffer(id),
       transports: transports as AuthenticatorTransport[],
     };
-  })
-}
+  });
+};
 
-const toPublicKey = (options: PublicKeyCredentialRequestOptionsJSON, allowCredentials: PublicKeyCredentialDescriptor[]): PublicKeyCredentialRequestOptions => ({
+const toPublicKey = (
+  options: PublicKeyCredentialRequestOptionsJSON,
+  allowCredentials: PublicKeyCredentialDescriptor[],
+): PublicKeyCredentialRequestOptions => ({
   ...options,
   challenge: base64URLStringToBuffer(options.challenge),
   allowCredentials,
-})
+});
 
-const toUserHandle = ({ userHandle }: AuthenticatorAssertionResponse): Base64URLString | undefined =>
+const toUserHandle = ({
+  userHandle,
+}: AuthenticatorAssertionResponse): Base64URLString | undefined =>
   userHandle ? bufferToBase64URLString(userHandle) : undefined;
 
-const toResponse = (credential: AuthenticationCredential): AuthenticationResponseJSON => {
+const toResponse = (
+  credential: AuthenticationCredential,
+): AuthenticationResponseJSON => {
   const { id, rawId, response, type } = credential;
 
   return {
@@ -45,9 +67,11 @@ const toResponse = (credential: AuthenticationCredential): AuthenticationRespons
       credential.authenticatorAttachment,
     ),
   };
-}
+};
 
-const toOptions = (request: PublicKeyCredentialRequestOptionsJSON): CredentialRequestOptions => {
+const toOptions = (
+  request: PublicKeyCredentialRequestOptionsJSON,
+): CredentialRequestOptions => {
   const allowCredentials = toAllowCredentials(request.allowCredentials);
   const publicKey = toPublicKey(request, allowCredentials);
   const signal = WebAuthnAbortService.createNewAbortSignal();
@@ -55,17 +79,17 @@ const toOptions = (request: PublicKeyCredentialRequestOptionsJSON): CredentialRe
   return {
     publicKey,
     signal,
-  }
-}
+  };
+};
 
-export const startAuthentication = async (request: PublicKeyCredentialRequestOptionsJSON): Promise<AuthenticationResponseJSON> => {
+export const startAuthentication = async (
+  request: PublicKeyCredentialRequestOptionsJSON,
+): Promise<AuthenticationResponseJSON> => {
   if (!isSupportedByBrowser()) {
     throw new Error('Browser is not supporting Web Authentication API');
   }
 
   const options = toOptions(request);
 
-  return getCredential(options)
-    .then(toResponse)
-    .catch(rethrow);
-}
+  return getCredential(options).then(toResponse).catch(rethrow);
+};

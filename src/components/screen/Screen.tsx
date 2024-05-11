@@ -1,11 +1,7 @@
-import React, { PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react';
 
 const Screen: React.FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <>
-      {children}
-    </>
-  )
-}
+  return <>{children}</>;
+};
 
-export default Screen
+export default Screen;

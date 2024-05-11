@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/auth';
 import { PATHS } from '@/navigation/paths';
 
-const withGuard = <T extends object,>(
+const withGuard = <T extends object>(
   WrappedComponent: React.ComponentType<T>,
 ) => {
   const GuardComponent = (props: T) => {
