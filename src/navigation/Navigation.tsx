@@ -1,9 +1,9 @@
 import React from 'react'
-import { RouteObject, RouterProvider, createHashRouter } from 'react-router-dom'
+import { createHashRouter,RouteObject, RouterProvider } from 'react-router-dom'
 
 import auth from '@/features/auth';
-import home from '@/features/home';
 import dashboard from '@/features/dashboard';
+import home from '@/features/home';
 
 const flatten = (routes: RouteObject[][]) => routes.flat();
 

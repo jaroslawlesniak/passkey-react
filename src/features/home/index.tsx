@@ -1,6 +1,8 @@
 import type { RouteObject } from "react-router-dom";
-import HomeScreen from "./screens/HomeScreen";
+
 import { PATHS } from '@/navigation/paths';
+
+import HomeScreen from "./screens/HomeScreen";
 
 const routes: RouteObject[] = [
   {

@@ -1,5 +1,5 @@
 import { AuthenticatorAttestationResponseFuture, AuthenticatorTransportFuture, PublicKeyCredentialCreationOptions, PublicKeyCredentialCreationOptionsJSON, PublicKeyCredentialDescriptor, PublicKeyCredentialDescriptorJSON, RegistrationCredential, RegistrationCredentialWithResponse, RegistrationResponseJSON } from "../types";
-import { WebAuthnAbortService, base64URLStringToBuffer, bufferToBase64URLString, isSupportedByBrowser, toAuthenticatorAttachment } from "../utils";
+import { base64URLStringToBuffer, bufferToBase64URLString, isSupportedByBrowser, toAuthenticatorAttachment,WebAuthnAbortService } from "../utils";
 import { createCredential } from "./native";
 
 const toPublicKeyCredentialDescriptor = (

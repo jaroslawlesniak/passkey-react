@@ -1,7 +1,8 @@
-import { useAuth } from '@/contexts/auth';
-import { PATHS } from '@/navigation/paths';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+
+import { useAuth } from '@/contexts/auth';
+import { PATHS } from '@/navigation/paths';
 
 const withGuard = <T extends object,>(
   WrappedComponent: React.ComponentType<T>,

@@ -1,7 +1,8 @@
+import { useCallback } from 'react';
+
 import { usePromise } from '@/hooks'
 import { login } from '@/lib/auth';
 import { finishLoginProcess, startLoginProcess } from '@/services/auth';
-import { useCallback } from 'react';
 
 const useLogging = (onSuccess: (token: string, email: string) => void) => {
   const loginChain = useCallback((email: string) =>

@@ -1,5 +1,5 @@
-import { throwIfFalsy } from "../utils";
 import { AuthenticationCredential } from "../types";
+import { throwIfFalsy } from "../utils";
 
 export const getCredential = (options: CredentialRequestOptions): Promise<AuthenticationCredential> =>
   navigator.credentials.get(options).then(

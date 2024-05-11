@@ -1,9 +1,11 @@
-import { PATHS } from '@/navigation';
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom';
+
+import { useAuth } from '@/contexts/auth';
+import { PATHS } from '@/navigation';
+
 import useLogging from './useLogging';
 import useRegistration from './useRegistration';
-import { useAuth } from '@/contexts/auth';
 
 const useAuthentication = () => {
   const { setUser } = useAuth();

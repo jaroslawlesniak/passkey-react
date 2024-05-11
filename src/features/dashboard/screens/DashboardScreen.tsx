@@ -1,7 +1,8 @@
-import { withGuard } from "@/hoc/auth"
 import { Button, Paper, Stack, Typography } from "@mui/material";
 import { BarChart } from '@mui/x-charts/BarChart';
+
 import { useAuth } from "@/contexts/auth";
+import { withGuard } from "@/hoc/auth"
 
 const DashboardScreen = () => {
   const { user, setUser } = useAuth();

@@ -1,4 +1,5 @@
-import React, { PropsWithChildren, createContext, useContext, useState } from 'react'
+import React, { createContext, PropsWithChildren, useContext, useState } from 'react'
+
 import { ContextValue, User } from './types';
 
 const user: User = {

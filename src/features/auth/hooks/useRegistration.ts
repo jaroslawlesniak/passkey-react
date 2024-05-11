@@ -1,7 +1,8 @@
+import { useCallback } from 'react';
+
 import { usePromise } from '@/hooks'
 import { register } from '@/lib/auth';
 import { finishRegistrationProcess, startRegistrationProcess } from '@/services/auth';
-import { useCallback } from 'react';
 
 const useRegistration = (onSuccess: (token: string, email: string) => void) => {
   const registerChain = useCallback((email: string) =>

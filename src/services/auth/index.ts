@@ -1,4 +1,5 @@
 import { post } from "@/lib/rest";
+
 import type {
   FinishLoggingPayload,
   FinishLoggingResponse,

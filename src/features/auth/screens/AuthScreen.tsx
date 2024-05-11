@@ -1,7 +1,7 @@
 import { Screen } from "@/components/screen";
-import LoginForm from "../components/LoginForm";
 
 import { Container } from "../components";
+import LoginForm from "../components/LoginForm";
 import useAuthentication from "../hooks/useAuthentication";
 
 const AuthScreen = () => {

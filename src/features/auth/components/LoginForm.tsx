@@ -1,7 +1,8 @@
-import { Styles } from "@/styles/types";
 import { Fingerprint } from "@mui/icons-material";
 import { Button, Divider, Stack, TextField } from "@mui/material";
 import { useState } from "react";
+
+import { Styles } from "@/styles/types";
 
 type Props = {
   onRegister: (email: string) => void;

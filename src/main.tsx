@@ -1,10 +1,10 @@
+import './styles/index.css'
+
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-import { Navigation } from '@/navigation'
 import { AuthProvider } from '@/contexts/auth'
-
-import './styles/index.css'
+import { Navigation } from '@/navigation'
 
 const root = document.getElementById('root')!;
 

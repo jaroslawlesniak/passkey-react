@@ -1,6 +1,6 @@
-import { getCredential } from "./native";
-import { WebAuthnAbortService, base64URLStringToBuffer, bufferToBase64URLString, isSupportedByBrowser, rethrow, toAuthenticatorAttachment } from "../utils";
 import { AuthenticationCredential, AuthenticationResponseJSON, Base64URLString, PublicKeyCredentialDescriptorJSON, PublicKeyCredentialRequestOptionsJSON } from "../types";
+import { base64URLStringToBuffer, bufferToBase64URLString, isSupportedByBrowser, rethrow, toAuthenticatorAttachment,WebAuthnAbortService } from "../utils";
+import { getCredential } from "./native";
 
 const toAllowCredentials = (allowed?: PublicKeyCredentialDescriptorJSON[]): PublicKeyCredentialDescriptor[] => {
   if (!allowed) {

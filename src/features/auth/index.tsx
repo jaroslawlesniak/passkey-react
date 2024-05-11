@@ -1,6 +1,8 @@
 import type { RouteObject } from "react-router-dom";
-import AuthScreen from "./screens/AuthScreen";
+
 import { PATHS } from "@/navigation/paths";
+
+import AuthScreen from "./screens/AuthScreen";
 
 const routes: RouteObject[] = [
   {
