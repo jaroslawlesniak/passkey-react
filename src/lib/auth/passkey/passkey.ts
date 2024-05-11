@@ -1,13 +1,8 @@
-import {
-  startRegistration
-} from "@simplewebauthn/browser";
-import {
-  PublicKeyCredentialCreationOptionsJSON,
-} from '@simplewebauthn/types'
 import { startAuthentication } from "./authentication";
-import { AuthenticationResponseJSON, PublicKeyCredentialRequestOptionsJSON } from "./types";
+import { startRegistration } from "./registration";
+import { AuthenticationResponseJSON, PublicKeyCredentialCreationOptionsJSON, PublicKeyCredentialRequestOptionsJSON, RegistrationResponseJSON } from "./types";
 
-export const register = (options: PublicKeyCredentialCreationOptionsJSON) =>
+export const register = (options: PublicKeyCredentialCreationOptionsJSON): Promise<RegistrationResponseJSON> =>
   startRegistration(options);
 
 export const login = (options: PublicKeyCredentialRequestOptionsJSON): Promise<AuthenticationResponseJSON> =>

@@ -1,8 +1,4 @@
-import {
-  RegistrationResponseJSON,
-  PublicKeyCredentialCreationOptionsJSON,
-  AuthenticationResponseJSON
-} from '@simplewebauthn/types'
+import { AuthenticationResponseJSON, PublicKeyCredentialCreationOptionsJSON, RegistrationResponseJSON } from "@/lib/auth/passkey";
 
 export type StartRegistrationPayload = {
   email: string;
