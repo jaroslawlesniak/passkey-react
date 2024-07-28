@@ -89,7 +89,5 @@ export const startAuthentication = async (
     throw new Error('Browser is not supporting Web Authentication API');
   }
 
-  const options = toOptions(request);
-
-  return getCredential(options).then(toResponse).catch(rethrow);
+  return getCredential(toOptions(request)).then(toResponse).catch(rethrow);
 };
