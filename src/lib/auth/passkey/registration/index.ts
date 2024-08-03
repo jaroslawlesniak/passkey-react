@@ -98,9 +98,10 @@ const addResponseData = (
   credential: RegistrationCredential,
 ): RegistrationCredentialWithResponse => {
   const { response } = credential;
-
+  
   return {
     ...credential,
+    response,
     transports: withTransports(response),
     responsePublicKeyAlgorithm: withResponsePublicKeyAlgorithm(response),
     responsePublicKey: withResponsePublicKey(response),
@@ -116,22 +117,18 @@ const toResponse = (
     rawId,
     response,
     type,
-    transports,
-    responseAuthenticatorData,
-    responsePublicKey,
-    responsePublicKeyAlgorithm,
   } = credential;
 
   return {
     id,
     rawId: bufferToBase64URLString(rawId),
     response: {
+      transports: withTransports(response),
       attestationObject: bufferToBase64URLString(response.attestationObject),
       clientDataJSON: bufferToBase64URLString(response.clientDataJSON),
-      transports,
-      publicKeyAlgorithm: responsePublicKeyAlgorithm,
-      publicKey: responsePublicKey,
-      authenticatorData: responseAuthenticatorData,
+      publicKeyAlgorithm: withResponsePublicKeyAlgorithm(response),
+      publicKey: withResponsePublicKey(response),
+      authenticatorData: withResponseAuthenticatorData(response),
     },
     type,
     clientExtensionResults: credential.getClientExtensionResults(),
@@ -149,6 +146,6 @@ export const startRegistration = async (
   }
 
   return createCredential(toOptions(request))
-    .then(addResponseData)
+    // .then(addResponseData)
     .then(toResponse);
 };
