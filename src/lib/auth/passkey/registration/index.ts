@@ -5,7 +5,6 @@ import {
   PublicKeyCredentialCreationOptionsJSON,
   PublicKeyCredentialDescriptor,
   PublicKeyCredentialDescriptorJSON,
-  RegistrationCredential,
   RegistrationCredentialWithResponse,
   RegistrationResponseJSON,
 } from '../types';
@@ -94,30 +93,10 @@ const withResponseAuthenticatorData = (
   }
 };
 
-const addResponseData = (
-  credential: RegistrationCredential,
-): RegistrationCredentialWithResponse => {
-  const { response } = credential;
-  
-  return {
-    ...credential,
-    response,
-    transports: withTransports(response),
-    responsePublicKeyAlgorithm: withResponsePublicKeyAlgorithm(response),
-    responsePublicKey: withResponsePublicKey(response),
-    responseAuthenticatorData: withResponseAuthenticatorData(response),
-  };
-};
-
 const toResponse = (
   credential: RegistrationCredentialWithResponse,
 ): RegistrationResponseJSON => {
-  const {
-    id,
-    rawId,
-    response,
-    type,
-  } = credential;
+  const { id, rawId, response, type } = credential;
 
   return {
     id,
@@ -145,7 +124,9 @@ export const startRegistration = async (
     throw new Error('Browser is not supporting Web Authentication API');
   }
 
-  return createCredential(toOptions(request))
-    // .then(addResponseData)
-    .then(toResponse);
+  return (
+    createCredential(toOptions(request))
+      // .then(addResponseData)
+      .then(toResponse)
+  );
 };
